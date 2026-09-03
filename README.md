@@ -1,8 +1,8 @@
 # HouseHold Electricity Analysis
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.13.15-blue?logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 A Python-based analysis of electricity consumption across four cities — exploring tariff rates, monthly bills, appliance-level usage, and company revenue, then estimating monthly electricity bills both automatically (city averages) and interactively (based on a user's own appliance usage).
 
