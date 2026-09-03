@@ -1,4 +1,4 @@
-# Electricity Consumption Analysis
+# HouseHold Electricity Analysis
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas&logoColor=white)
@@ -65,20 +65,35 @@ The analysis aims to answer:
 
 *(Column list inferred from the script — update this table if your actual CSV headers differ.)*
 
+> **Note:** The `Data/` folder contains two CSVs — `Electricity_dataset(4cities).csv` and `electricity_bill_dataset.csv`. Only `Electricity_dataset(4cities).csv` is used by `Electricity_Analysis.py`. If `electricity_bill_dataset.csv` is a separate/earlier dataset, document its purpose here or remove it if unused.
+
 ## Project Structure
 
 ```text
-electricity-consumption-analysis/
+HouseHold-Electricity-Analysis/
 │
-├── data/
-│   └── Electricity_dataset(4cities).csv
+├── Data/
+│   ├── Electricity_dataset(4cities).csv
+│   └── electricity_bill_dataset.csv
 │
-├── electricity_analysis.py
+├── Images/
+│   ├── city_wise_tariff.png
+│   ├── avg_bill_per_month.png
+│   ├── total_revenue.png
+│   ├── total_appliance_usage.png
+│   ├── automated_bill_prediction.png
+│   └── user_input_usage_demo.png
 │
+├── .gitignore
+├── Electricity_Analysis.py
 └── README.md
 ```
 
-*(Adjust the script filename/path above to match your actual repo layout.)*
+> **Important:** `Electricity_Analysis.py` currently reads the CSV with `pd.read_csv('Electricity_dataset(4cities).csv')` — a relative path with no folder prefix. Since the file actually lives in `Data/`, update that line to:
+> ```python
+> df = pd.read_csv('Data/Electricity_dataset(4cities).csv')
+> ```
+> otherwise the script will only run correctly if executed from inside the `Data/` folder.
 
 ## Features
 
@@ -151,7 +166,7 @@ Actual output from running the script on the dataset:
 1. Place `Electricity_dataset(4cities).csv` in the same directory as the script (or update the path in `pd.read_csv(...)` to match your `data/` folder).
 2. Run the script:
    ```bash
-   python electricity_analysis.py
+   python Electricity_Analysis.py
    ```
 3. The script runs all analysis functions in sequence, each opening a matplotlib chart window — **close each chart to continue** to the next function, since `plt.show()` blocks execution.
 4. At the end, it launches the **interactive bill estimator** in the terminal: select a city (or enter a custom tariff), choose which appliances you use, optionally add custom appliances, then enter 7 days of usage hours per appliance to get a personalized estimate.
@@ -175,7 +190,7 @@ No local Python setup? Run it directly in [Google Colab](https://colab.research.
      from google.colab import drive
      drive.mount('/content/drive')
      ```
-3. **Paste the script into a cell** (or upload the `.py` file and run it with `%run electricity_analysis.py`).
+3. **Paste the script into a cell** (or upload the `.py` file and run it with `%run Electricity_Analysis.py`).
 4. **Run the cell.** Charts render inline automatically in Colab — you won't need to close chart windows to proceed, unlike running it locally in a terminal.
 5. **For the interactive `user_input_usage_analysis()` step**, Colab supports `input()` — a text box appears below the running cell for each prompt. Type your answer and press Enter to continue.
 
@@ -208,6 +223,6 @@ No local Python setup? Run it directly in [Google Colab](https://colab.research.
 
 ## Author
 
-**Soumi Jain**
+**Soumil Jain**
 
 A Python data analysis and estimation project exploring electricity consumption, tariffs, and billing patterns across four cities.
