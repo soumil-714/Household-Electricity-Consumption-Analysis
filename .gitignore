@@ -1,0 +1,21 @@
+# --- OS junk files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editor ---
+.vscode/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- Logs / temp files ---
+*.log
+*~
+*.tmp
+
+# --- Ad-hoc exported charts (not the ones you deliberately embed in the README) ---
+/exports/
+/output/*.png
