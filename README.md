@@ -208,6 +208,6 @@ No local Python setup? Run it directly in [Google Colab](https://colab.research.
 
 ## Author
 
-**Soumi Jainl**
+**Soumi Jain**
 
 A Python data analysis and estimation project exploring electricity consumption, tariffs, and billing patterns across four cities.
