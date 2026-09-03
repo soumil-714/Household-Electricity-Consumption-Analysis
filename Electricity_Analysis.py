@@ -91,8 +91,8 @@ def total_monthly_hours_per_company():
     plt.show()
 
 def total_revenue():
-    revenue_company = df.groupby('Company')['ElectricityBill'].sum()
-    revenue_city = df.groupby('City')['ElectricityBill'].sum()
+    revenue_company = df.groupby('Company')['ElectricityBill'].sum().sort_values(ascending=False)
+    revenue_city = df.groupby('City')['ElectricityBill'].sum().sort_values(ascending=False)
 
     # Convert values to formatted rupees
     revenue_company_formatted = revenue_company.apply(lambda x: f"₹{x:,.2f}")
@@ -103,22 +103,31 @@ def total_revenue():
     print("\nTotal Revenue per City:")
     print(tabulate(revenue_city_formatted.reset_index(), headers=['City', 'Total Revenue (₹)'], tablefmt='grid'))
 
-    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+    # Two SEPARATE figures instead of cramming both into one row --
+    # this alone solves most of the overlap since the company chart
+    # needs much more horizontal room than the city chart.
 
-    revenue_company.plot(kind='bar', ax=ax[0], color='green')
-    ax[0].set_title('Total Revenue per Company')
-    ax[0].set_ylabel('Revenue (₹)')
-    ax[0].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₹{x:,.0f}'))
+    # --- Company Revenue Plot ---
+    fig1, ax1 = plt.subplots(figsize=(max(14, len(revenue_company) * 0.5), 8))
+    revenue_company.plot(kind='bar', ax=ax1, color='green')
+    ax1.set_title('Total Revenue per Company', fontsize=14)
+    ax1.set_xlabel('Company')
+    ax1.set_ylabel('Revenue (₹)')
+    ax1.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₹{x:,.0f}'))
+    ax1.set_xticklabels(revenue_company.index, rotation=90, ha='center', fontsize=9)
+    fig1.tight_layout()
 
-    revenue_city.plot(kind='bar', ax=ax[1], color='red')
-    ax[1].set_title('Total Revenue per City')
-    ax[1].set_ylabel('Revenue (₹)')
-    ax[1].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₹{x:,.0f}'))
-
-    plt.subplots_adjust(bottom=0.2, top=0.9)  # Adjust margins manually
+    # --- City Revenue Plot ---
+    fig2, ax2 = plt.subplots(figsize=(8, 5))
+    revenue_city.plot(kind='bar', ax=ax2, color='red')
+    ax2.set_title('Total Revenue per City', fontsize=14)
+    ax2.set_xlabel('City')
+    ax2.set_ylabel('Revenue (₹)')
+    ax2.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₹{x:,.0f}'))
+    ax2.set_xticklabels(revenue_city.index, rotation=45, ha='right', fontsize=10)
+    fig2.tight_layout()
 
     plt.show()
-
 
 # Average tariff rate by companies
 def avg_tariff_by_company():
@@ -145,7 +154,7 @@ def total_appliance_usage():
     plt.show()
 
 
-# Improved Automated Electricity Bill Prediction City-wise from Dataset
+# Automated Electricity Bill Prediction City-wise from Dataset
 
 def automated_electricity_bill_prediction():
     # Required numeric columns
@@ -205,7 +214,7 @@ def automated_electricity_bill_prediction():
     result['Average Tariff Rate (₹/kWh)'] = result['Average Tariff Rate (₹/kWh)'].round(2)
     result['Estimated Monthly Bill (₹)'] = result['Estimated Monthly Bill (₹)'].round(2)
 
-    print("\n🔹 Improved City-wise Predicted Monthly Electricity Bill:")
+    print("\n🔹 Automated City-wise Predicted Monthly Electricity Bill:")
     print(tabulate(result, headers='keys', tablefmt='grid', showindex=False))
 
     # Visualization
@@ -219,14 +228,13 @@ def automated_electricity_bill_prediction():
         legend=False
     )
 
-    plt.title('Improved City-wise Predicted Monthly Electricity Bill')
+    plt.title('Automated City-wise Predicted Monthly Electricity Bill')
     plt.xlabel('City')
     plt.ylabel('Estimated Monthly Bill (₹)')
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
 
-# User Input Electricity Usage Analysis and Bill Prediction
 # User Input Electricity Usage Analysis and Bill Prediction
 
 # Convert appliance usage hours into kWh
